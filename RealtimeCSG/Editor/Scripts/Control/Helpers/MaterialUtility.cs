@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using InternalRealtimeCSG;
+using UnityEditorInternal;
 
 namespace RealtimeCSG
 {
@@ -142,9 +145,13 @@ namespace RealtimeCSG
 					o.name == n.name;
 		}
 
-		
-		const string DefaultMaterialPath = "Assets/Plugins/RealtimeCSG/Runtime/Materials/";
-		const string DefaultTexturePath = "Assets/Plugins/RealtimeCSG/Runtime/Textures/";
+		static string s_RuntimePath; 
+		public static string RuntimePath => s_RuntimePath = !string.IsNullOrEmpty(s_RuntimePath)
+			? s_RuntimePath
+			: AssetDatabase.FindAssets("t:folder RealtimeCSG").Select(AssetDatabase.GUIDToAssetPath).FirstOrDefault(x => x.EndsWith("RealtimeCSG"));
+
+		static readonly string DefaultMaterialPath = $"{RuntimePath}/Runtime/Materials/";
+		static readonly string DefaultTexturePath  =  $"{RuntimePath}/Runtime/Textures/";
 		
 		internal static void CreateRenderPipelineVersionOfDefaultMaterial(Material defaultMaterial, string materialName)
 		{
