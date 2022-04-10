@@ -32,7 +32,7 @@ namespace RealtimeCSG
 				new MeshQuery(LayerUsageFlags.RenderReceiveCastShadows,   LayerUsageFlags.RenderReceiveCastShadows, LayerParameterIndex.RenderMaterial,	VertexChannelFlags.All),
 
 				// MeshColliders
-				new MeshQuery(LayerUsageFlags.Collidable,       parameterIndex: LayerParameterIndex.PhysicsMaterial),
+				new MeshQuery(LayerUsageFlags.Collidable,       parameterIndex: LayerParameterIndex.PhysicsMaterial, vertexChannels: VertexChannelFlags.Position|VertexChannelFlags.Normal),
 
 #if UNITY_EDITOR
 				// Helper surfaces (editor only)
@@ -65,7 +65,7 @@ namespace RealtimeCSG
 		readonly static MeshQuery[] colliderMeshTypes = new MeshQuery[]
 			{
 				// MeshColliders
-				new MeshQuery(LayerUsageFlags.Collidable,    parameterIndex: LayerParameterIndex.PhysicsMaterial),
+				new MeshQuery(LayerUsageFlags.Collidable,    parameterIndex: LayerParameterIndex.PhysicsMaterial, vertexChannels: VertexChannelFlags.Position|VertexChannelFlags.Normal),
 
 #if UNITY_EDITOR
 				// Helper surfaces (editor only)
